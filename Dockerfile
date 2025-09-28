@@ -1,18 +1,14 @@
-FROM node:20-alpine
+FROM oven/bun:1 AS base
 WORKDIR /usr/src/app
 
-# Install bash and curl
-RUN apk add --no-cache bash curl openssl
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
-ENV PATH="/root/.bun/bin:$PATH"
 
 
 COPY ./package.json  ./package.json
 COPY ./package-lock.json  ./package-lock.json
 
 RUN  bun install 
+RUN apt-get update -y && apt-get install -y openssl
 COPY ./ ./
 RUN bun prisma generate
 
