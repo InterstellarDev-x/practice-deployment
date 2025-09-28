@@ -2,7 +2,7 @@ FROM node:20-alpine
 WORKDIR /usr/src/app
 
 # Install bash and curl
-
+RUN apk add --no-cache bash curl openssl
 
 # Install Bun
 RUN curl -fsSL https://bun.sh/install | bash
